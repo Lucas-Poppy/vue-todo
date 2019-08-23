@@ -4,13 +4,13 @@
       <form>
         <div class="form-row">
           <div class="col">
-            <input type="text" class="form-control" placeholder="TODO">
+            <input type="text" class="form-control" placeholder="title" v-model="title">
           </div>
           <div class="col">
-            <input type="date" class="form-control" placeholder="">
+            <input type="date" class="form-control" placeholder="" v-model="date">
           </div>
           <div class="col">
-            <button class="btn btn-primary">追加</button>
+            <button class="btn btn-primary" @click="add">追加</button>
           </div>
         </div>
       </form>
@@ -36,6 +36,25 @@
 
 <script>
 export default {
-
+  data: () => {
+    return {
+      title: '',
+      date: ''
+    }
+  },
+  methods: {
+    add () {
+      const item = {
+        'title': this.title,
+        'date': this.date
+      }
+      this.clear()
+      this.$store.dispatch('todoList/add', item)
+    },
+    clear () {
+      this.title = ''
+      this.date = ''
+    }
+  }
 }
 </script>
