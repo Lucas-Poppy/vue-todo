@@ -5,12 +5,15 @@ import App from '@/App'
 import router from '@/router/'
 import store from '@/store'
 import BootstrapVue from 'bootstrap-vue'
-// import TestComponent from '@/views/TestComponent'
 import NavigationComponent from '@/views/NavigationComponent'
 import TodoComponent from '@/views/TodoComponent'
-
+// import VueMaterial from 'vue-material'
+// import 'vue-material/dist/vue-material.min.css'
+// import 'vue-material/dist/theme/default.css'
+import icon from 'material-design-icons'
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
+Vue.use(icon)
 Vue.component('TodoComponent', TodoComponent)
 Vue.component('NavigationComponent', NavigationComponent)
 

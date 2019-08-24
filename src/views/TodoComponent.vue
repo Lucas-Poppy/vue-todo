@@ -29,9 +29,8 @@
           <router-link :to="{ name: 'CalenderComponent' }" active-class="active" class="nav-link">カレンダー</router-link>
         </li>
     </ul>
-    <router-view></router-view>
+    <router-view @done="done" @doing="doing"></router-view>
   </div>
-
 </template>
 
 <script>
@@ -44,9 +43,14 @@ export default {
   },
   methods: {
     add () {
+      // 未入力チェック
+      if (!this.addValidation()) {
+        return
+      }
       const item = {
         'title': this.title,
-        'date': this.date
+        'date': this.date,
+        'status': 'doing'
       }
       this.clear()
       this.$store.dispatch('todoList/add', item)
@@ -54,6 +58,18 @@ export default {
     clear () {
       this.title = ''
       this.date = ''
+    },
+    addValidation () {
+      if (this.title && this.date) {
+        return true
+      }
+      return false
+    },
+    done (id) {
+      this.$store.dispatch('todoList/done', id)
+    },
+    doing (id) {
+      this.$store.dispatch('todoList/doing', id)
     }
   }
 }
