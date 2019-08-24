@@ -20,7 +20,7 @@
               done
               </i>
             </button>
-            <button type="button" class="btn btn-primary">
+            <button type="button" class="btn btn-primary" @click="edit(item)">
               <i class="material-icons">
               edit
               </i>
@@ -44,6 +44,9 @@ export default {
   methods: {
     done (id) {
       this.$emit('done', id)
+    },
+    edit (item) {
+      this.$emit('editOpen', item)
     }
   }
 }

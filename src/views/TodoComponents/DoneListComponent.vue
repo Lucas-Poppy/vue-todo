@@ -15,12 +15,12 @@
           <td>{{ item.title }}</td>
           <td>{{ item.date }}</td>
           <td>
-            <button type="button" class="btn btn-success" @click="doing(item.id)">
+            <button type="button" class="btn btn-warning" @click="doing(item.id)">
               <i class="material-icons">
               reply
               </i>
             </button>
-            <button type="button" class="btn btn-primary">
+            <button type="button" class="btn btn-primary" @click="edit(item)">
               <i class="material-icons">
               edit
               </i>
@@ -44,6 +44,9 @@ export default {
   methods: {
     doing (id) {
       this.$emit('doing', id)
+    },
+    edit (item) {
+      this.$emit('editOpen', item)
     }
   }
 }

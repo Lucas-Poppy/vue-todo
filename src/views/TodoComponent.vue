@@ -29,7 +29,22 @@
           <router-link :to="{ name: 'CalenderComponent' }" active-class="active" class="nav-link">カレンダー</router-link>
         </li>
     </ul>
-    <router-view @done="done" @doing="doing"></router-view>
+    <router-view @done="done" @doing="doing" @editOpen="editOpen"></router-view>
+
+    <ModalComponent @close="closeModal" v-if="modal">
+      <p>変更画面</p>
+      <div>
+        <input type="text" v-model="m_title">
+      </div>
+      <div>
+        <input type="date" v-model="m_date">
+      </div>
+      <!-- /default -->
+      <!-- footer スロットコンテンツ -->
+      <template slot="footer">
+        <button @click="edit(edit_id)">変更</button>
+      </template>
+    </ModalComponent>
   </div>
 </template>
 
@@ -38,7 +53,11 @@ export default {
   data: () => {
     return {
       title: '',
-      date: ''
+      date: '',
+      m_title: '',
+      m_date: '',
+      modal: false,
+      edit_id: 0
     }
   },
   methods: {
@@ -70,6 +89,21 @@ export default {
     },
     doing (id) {
       this.$store.dispatch('todoList/doing', id)
+    },
+    editOpen (item) {
+      this.edit_id = item.id
+      this.m_title = item.title
+      this.m_date = item.date
+      this.modal = true
+    },
+    closeModal () {
+      this.modal = false
+    },
+    edit () {
+      this.$store.dispatch('todoList/edit', {id: this.edit_id, title: this.m_title, date: this.m_date})
+      this.closeModal()
+      this.m_title = ''
+      this.m_date = ''
     }
   }
 }

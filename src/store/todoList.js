@@ -27,6 +27,11 @@ export default {
     doing (state, {id}) {
       const item = state.todoList.find(el => el.id === id)
       item.status = DOING_STATUS
+    },
+    edit (state, {id, title, date}) {
+      const item = state.todoList.find(el => el.id === id)
+      item.title = title
+      item.date = date
     }
   },
   actions: {
@@ -41,6 +46,9 @@ export default {
     },
     doing ({ commit }, id) {
       commit('doing', {id})
+    },
+    edit ({ commit }, item) {
+      commit('edit', {id: item.id, title: item.title, date: item.date})
     }
   }
 }
