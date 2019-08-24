@@ -18,7 +18,8 @@ export default {
       state.todoList.push(todo)
     },
     delete (state, {id}) {
-      state.todoList.splice(id, 1)
+      const index = state.todoList.findIndex(el => el.id === id)
+      state.todoList.splice(index, 1)
     },
     done (state, {id}) {
       const item = state.todoList.find(el => el.id === id)

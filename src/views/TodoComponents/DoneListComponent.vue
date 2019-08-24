@@ -25,7 +25,7 @@
               edit
               </i>
             </button>
-            <button type="button" class="btn btn-danger">
+            <button type="button" class="btn btn-danger" @click="del(item.id)">
               <i class="material-icons">
               delete
               </i>
@@ -47,6 +47,9 @@ export default {
     },
     edit (item) {
       this.$emit('editOpen', item)
+    },
+    del (id) {
+      this.$emit('del', id)
     }
   }
 }

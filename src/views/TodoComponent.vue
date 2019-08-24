@@ -29,8 +29,7 @@
           <router-link :to="{ name: 'CalenderComponent' }" active-class="active" class="nav-link">カレンダー</router-link>
         </li>
     </ul>
-    <router-view @done="done" @doing="doing" @editOpen="editOpen"></router-view>
-
+    <router-view @done="done" @doing="doing" @editOpen="editOpen" @del="del"></router-view>
     <ModalComponent @close="closeModal" v-if="modal">
       <p>変更画面</p>
       <div>
@@ -104,6 +103,9 @@ export default {
       this.closeModal()
       this.m_title = ''
       this.m_date = ''
+    },
+    del (id) {
+      this.$store.dispatch('todoList/delete', id)
     }
   }
 }
