@@ -8,6 +8,7 @@ import BootstrapVue from 'bootstrap-vue'
 import NavigationComponent from '@/views/NavigationComponent'
 import TodoComponent from '@/views/TodoComponent'
 import ModalComponent from '@/views/modules/Modal'
+import VCalendar from 'v-calendar'
 
 // import VueMaterial from 'vue-material'
 // import 'vue-material/dist/vue-material.min.css'
@@ -17,6 +18,9 @@ import icon from 'material-design-icons'
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)
 Vue.use(icon)
+Vue.use(VCalendar, {
+  componentPrefix: 'vc' // Use <vc-calendar /> instead of <v-calendar />
+})
 Vue.component('TodoComponent', TodoComponent)
 Vue.component('NavigationComponent', NavigationComponent)
 Vue.component('ModalComponent', ModalComponent)
