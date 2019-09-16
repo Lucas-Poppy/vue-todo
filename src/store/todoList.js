@@ -1,11 +1,11 @@
+import todoList from '@/api/todoList.js'
 const DONE_STATUS = 'done'
 const DOING_STATUS = 'doing'
 
 export default {
   namespaced: true,
   state: {
-    todoList: [],
-    count: 1
+    todoList: []
   },
   getters: {
     allList: state => state.todoList,
@@ -13,8 +13,7 @@ export default {
     doingList: state => state.todoList.filter(el => el.status === DOING_STATUS)
   },
   mutations: {
-    push (state, {todo}) {
-      todo.id = state.count++
+    push (state, todo) {
       state.todoList.push(todo)
     },
     delete (state, {id}) {
@@ -29,27 +28,47 @@ export default {
       const item = state.todoList.find(el => el.id === id)
       item.status = DOING_STATUS
     },
-    edit (state, {id, title, date}) {
-      const item = state.todoList.find(el => el.id === id)
-      item.title = title
-      item.date = date
+    edit (state, todo) {
+      const item = state.todoList.find(el => el.id === todo.id)
+      item.title = todo.title
+      item.date = todo.date
+    },
+    load (state, todoList) {
+      state.todoList = todoList
     }
   },
   actions: {
-    add ({ commit }, todo) {
-      commit('push', { todo })
+    async add ({ commit }, todo) {
+      const res = await todoList.store(todo)
+      commit('push', res)
     },
-    delete ({ commit }, id) {
-      commit('delete', {id})
+    async delete ({ commit }, id) {
+      const res = await todoList.destroy(id)
+      if (res.status) {
+        commit('delete', {id})
+      }
     },
-    done ({ commit }, id) {
-      commit('done', {id})
+    async done ({ commit }, id) {
+      const res = await todoList.done(id)
+      if (res.status) {
+        commit('done', {id})
+      }
     },
-    doing ({ commit }, id) {
-      commit('doing', {id})
+    async doing ({ commit }, id) {
+      const res = await todoList.doing(id)
+      if (res.status) {
+        commit('doing', {id})
+      }
     },
-    edit ({ commit }, item) {
-      commit('edit', {id: item.id, title: item.title, date: item.date})
+    async edit ({ commit }, todo) {
+      const res = await todoList.update(todo)
+      if (res.status) {
+        commit('edit', todo)
+      }
+    },
+    async load ({ commit }) {
+      const lists = await todoList.list()
+      commit('load', lists)
     }
   }
 }

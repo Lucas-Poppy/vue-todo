@@ -13,7 +13,7 @@
         <tr v-for="item in doneList" :key="item.id">
           <th scope="row">{{ item.id }}</th>
           <td>{{ item.title }}</td>
-          <td>{{ item.date }}</td>
+          <td>{{ item.time_limit }}</td>
           <td>
             <button type="button" class="btn btn-warning" @click="doing(item.id)">
               <i class="material-icons">

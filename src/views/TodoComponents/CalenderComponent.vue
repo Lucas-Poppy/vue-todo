@@ -39,7 +39,7 @@ export default {
         return []
       }
       const date = moment({years: year, months: month - 1, days: day}).format('YYYY-MM-DD')
-      return allList.filter(el => el.date === date)
+      return allList.filter(el => el.time_limit === date)
     },
     style (index, status) {
       const colors = ['#F5B2B2', '#9FD9F6', '#A5D4AD', '#F4B4D0', '#F5B090', '#DCDDDD']

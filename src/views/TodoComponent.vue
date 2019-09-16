@@ -10,7 +10,7 @@
             <input type="date" class="form-control" placeholder="" v-model="date">
           </div>
           <div class="col">
-            <button class="btn btn-primary" @click="add">追加</button>
+            <button type="button" class="btn btn-primary" @click="add">追加</button>
           </div>
         </div>
       </form>
@@ -67,7 +67,7 @@ export default {
       }
       const item = {
         'title': this.title,
-        'date': this.date,
+        'time_limit': this.date,
         'status': 'doing'
       }
       this.clear()
@@ -92,14 +92,14 @@ export default {
     editOpen (item) {
       this.edit_id = item.id
       this.m_title = item.title
-      this.m_date = item.date
+      this.m_date = item.time_limit
       this.modal = true
     },
     closeModal () {
       this.modal = false
     },
     edit () {
-      this.$store.dispatch('todoList/edit', {id: this.edit_id, title: this.m_title, date: this.m_date})
+      this.$store.dispatch('todoList/edit', {id: this.edit_id, title: this.m_title, time_limit: this.m_date})
       this.closeModal()
       this.m_title = ''
       this.m_date = ''
@@ -107,6 +107,9 @@ export default {
     del (id) {
       this.$store.dispatch('todoList/delete', id)
     }
+  },
+  mounted () {
+    this.$store.dispatch('todoList/load')
   }
 }
 </script>
