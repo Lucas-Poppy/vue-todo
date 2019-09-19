@@ -8,6 +8,7 @@ import BootstrapVue from 'bootstrap-vue'
 import NavigationComponent from '@/views/NavigationComponent'
 import TodoComponent from '@/views/TodoComponent'
 import ModalComponent from '@/views/modules/Modal'
+import LoadingComponent from '@/views/modules/Loading'
 import VCalendar from 'v-calendar'
 
 // import VueMaterial from 'vue-material'
@@ -24,6 +25,7 @@ Vue.use(VCalendar, {
 Vue.component('TodoComponent', TodoComponent)
 Vue.component('NavigationComponent', NavigationComponent)
 Vue.component('ModalComponent', ModalComponent)
+Vue.component('LoadingComponent', LoadingComponent)
 
 /* eslint-disable no-new */
 new Vue({

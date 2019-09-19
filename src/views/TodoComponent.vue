@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="main-content">
     <div>
       <form>
         <div class="form-row">
@@ -44,6 +44,8 @@
         <button @click="edit(edit_id)">変更</button>
       </template>
     </ModalComponent>
+    <div>{{$store.state.loading}}</div>
+    <LoadingComponent v-show="loading"></LoadingComponent>
   </div>
 </template>
 
@@ -110,6 +112,11 @@ export default {
   },
   mounted () {
     this.$store.dispatch('todoList/load')
+  },
+  computed: {
+    loading () {
+      return this.$store.state.todoList.loading
+    }
   }
 }
 </script>
