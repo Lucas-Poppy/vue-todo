@@ -18,17 +18,17 @@ export default {
       state.todoList.push(todo)
       state.loading = false
     },
-    delete (state, {id}) {
+    delete (state, { id }) {
       const index = state.todoList.findIndex(el => el.id === id)
       state.todoList.splice(index, 1)
       state.loading = false
     },
-    done (state, {id}) {
+    done (state, { id }) {
       const item = state.todoList.find(el => el.id === id)
       item.status = DONE_STATUS
       state.loading = false
     },
-    doing (state, {id}) {
+    doing (state, { id }) {
       const item = state.todoList.find(el => el.id === id)
       item.status = DOING_STATUS
       state.loading = false
@@ -57,21 +57,21 @@ export default {
       commit('loading')
       const res = await todoList.destroy(id)
       if (res.status) {
-        commit('delete', {id})
+        commit('delete', { id })
       }
     },
     async done ({ commit }, id) {
       commit('loading')
       const res = await todoList.done(id)
       if (res.status) {
-        commit('done', {id})
+        commit('done', { id })
       }
     },
     async doing ({ commit }, id) {
       commit('loading')
       const res = await todoList.doing(id)
       if (res.status) {
-        commit('doing', {id})
+        commit('doing', { id })
       }
     },
     async edit ({ commit }, todo) {
