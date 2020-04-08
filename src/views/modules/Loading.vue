@@ -1,10 +1,7 @@
 <template>
   <div id="overlay">
     <div id="loading">
-      <img
-        src="@/assets/circles.svg"
-        alt="loading"
-      >
+      <img src="@/assets/circles.svg" alt="loading">
     </div>
   </div>
 </template>
