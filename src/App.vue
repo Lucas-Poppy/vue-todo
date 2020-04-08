@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <NavigationComponent />
-    <TodoComponent />
+    <NavigationComponent/>
+    <TodoComponent/>
   </div>
 </template>
 

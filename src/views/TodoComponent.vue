@@ -4,104 +4,48 @@
       <form>
         <div class="form-row">
           <div class="col">
-            <input
-              v-model="title"
-              type="text"
-              class="form-control"
-              placeholder="title"
-            >
+            <input type="text" class="form-control" placeholder="title" v-model="title">
           </div>
           <div class="col">
-            <input
-              v-model="date"
-              type="date"
-              class="form-control"
-              placeholder=""
-            >
+            <input type="date" class="form-control" placeholder="" v-model="date">
           </div>
           <div class="col">
-            <button
-              type="button"
-              class="btn btn-primary"
-              @click="add"
-            >
-              追加
-            </button>
+            <button type="button" class="btn btn-primary" @click="add">追加</button>
           </div>
         </div>
       </form>
     </div>
     <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <router-link
-          :to="{ name: 'AllListComponent' }"
-          active-class="active"
-          class="nav-link"
-        >
-          全リスト
-        </router-link>
-      </li>
-      <li class="nav-item">
-        <router-link
-          :to="{ name: 'DoingListComponent' }"
-          active-class="active"
-          class="nav-link"
-        >
-          未完了リスト
-        </router-link>
-      </li>
-      <li class="nav-item">
-        <router-link
-          :to="{ name: 'DoneListComponent' }"
-          active-class="active"
-          class="nav-link"
-        >
-          完了リスト
-        </router-link>
-      </li>
-      <li class="nav-item">
-        <router-link
-          :to="{ name: 'CalenderComponent' }"
-          active-class="active"
-          class="nav-link"
-        >
-          カレンダー
-        </router-link>
-      </li>
+        <li class="nav-item">
+          <router-link :to="{ name: 'AllListComponent' }" active-class="active" class="nav-link">全リスト</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link :to="{ name: 'DoingListComponent' }" active-class="active" class="nav-link">未完了リスト</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link :to="{ name: 'DoneListComponent' }" active-class="active" class="nav-link">完了リスト</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link :to="{ name: 'CalenderComponent' }" active-class="active" class="nav-link">カレンダー</router-link>
+        </li>
     </ul>
-    <router-view
-      @done="done"
-      @doing="doing"
-      @editOpen="editOpen"
-      @del="del"
-    />
-    <ModalComponent
-      v-if="modal"
-      @close="closeModal"
-    >
+    <router-view @done="done" @doing="doing" @editOpen="editOpen" @del="del"></router-view>
+    <ModalComponent @close="closeModal" v-if="modal">
       <p>変更画面</p>
       <div>
-        <input
-          v-model="m_title"
-          type="text"
-        >
+        <input type="text" v-model="m_title">
       </div>
       <div>
-        <input
-          v-model="m_date"
-          type="date"
-        >
+        <input type="date" v-model="m_date">
       </div>
       <!-- /default -->
       <!-- footer スロットコンテンツ -->
       <template slot="footer">
-        <button @click="edit(edit_id)">
-          変更
-        </button>
+        <button @click="edit(edit_id)">変更</button>
       </template>
     </ModalComponent>
-    <div>{{ $store.state.loading }}</div>
-    <LoadingComponent v-show="loading" />
+    <div>{{$store.state.loading}}</div>
+    <LoadingComponent v-show="loading"></LoadingComponent>
   </div>
 </template>
 
@@ -117,14 +61,6 @@ export default {
       edit_id: 0
     }
   },
-  computed: {
-    loading () {
-      return this.$store.state.todoList.loading
-    }
-  },
-  mounted () {
-    this.$store.dispatch('todoList/load')
-  },
   methods: {
     add () {
       // 未入力チェック
@@ -132,9 +68,9 @@ export default {
         return
       }
       const item = {
-        title: this.title,
-        time_limit: this.date,
-        status: 'doing'
+        'title': this.title,
+        'time_limit': this.date,
+        'status': 'doing'
       }
       this.clear()
       this.$store.dispatch('todoList/add', item)
@@ -165,13 +101,21 @@ export default {
       this.modal = false
     },
     edit () {
-      this.$store.dispatch('todoList/edit', { id: this.edit_id, title: this.m_title, time_limit: this.m_date })
+      this.$store.dispatch('todoList/edit', {id: this.edit_id, title: this.m_title, time_limit: this.m_date})
       this.closeModal()
       this.m_title = ''
       this.m_date = ''
     },
     del (id) {
       this.$store.dispatch('todoList/delete', id)
+    }
+  },
+  mounted () {
+    this.$store.dispatch('todoList/load')
+  },
+  computed: {
+    loading () {
+      return this.$store.state.todoList.loading
     }
   }
 }

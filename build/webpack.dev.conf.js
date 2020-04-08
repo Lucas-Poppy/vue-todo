@@ -1,17 +1,14 @@
 'use strict'
-const path = require('path')
-
-const { VueLoaderPlugin } = require('vue-loader')
+const utils = require('./utils')
 const webpack = require('webpack')
+const config = require('../config')
 const merge = require('webpack-merge')
-const portfinder = require('portfinder')
+const path = require('path')
+const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-
-const utils = require('./utils')
-const config = require('../config')
-const baseWebpackConfig = require('./webpack.base.conf')
+const portfinder = require('portfinder')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
@@ -48,7 +45,6 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     }
   },
   plugins: [
-    new VueLoaderPlugin(),
     new webpack.DefinePlugin({
       'process.env': require('../config/dev.env')
     }),
